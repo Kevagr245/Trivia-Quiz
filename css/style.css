@@ -1,0 +1,104 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline:none;
+}
+
+body {
+    font-family: 'Oswald', sans-serif;
+}
+
+header{
+    margin-top: 20px;
+    height: 10vh;
+}
+
+main {
+    height: 75vh;
+}
+
+section {
+    height: 100%;
+}
+
+footer {
+    height: 10vh;
+}
+
+h1{
+    font-size: 60px;
+}
+
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-responsive {
+    height: auto;
+    width: auto;
+}
+
+.form-control label {
+    color: white;
+    display: block;
+    font-size: 26px;
+    width: 100%;
+    text-align: center;
+}
+
+.form-control input {
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 26px;
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+}
+
+.btn {
+    font-family: 'Oswald', sans-serif;
+    margin-top: 10px;
+    display: block;
+    line-height: 32px;
+    font-size: 26px;
+    width: 100%;
+    height: 100%;
+    border:none;
+    border-radius: 60px;
+    color: #fff;
+    cursor: pointer;
+    padding: 12px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+  
+.btn:hover {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.26), 0 4px 15px 0 rgba(0, 0, 0, 0.26);
+}
+
+.bg-dark {
+    background-color: #0f2026;
+}
+
+.bg-yellow {
+   background-color: yellow;
+}
+
+.bg-orange {
+    background-color: #ff5722;
+}
+
+.bg-orange:hover {
+    background-color:#ff6a3c;
+}
+
+.text-yellow {
+    color: yellow
+}
+
+.text-white {
+    color: white;
+}
