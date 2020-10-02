@@ -18,16 +18,17 @@ main {
     height: 75vh;
 }
 
-section {
-    height: 100%;
-}
-
 footer {
     height: 10vh;
 }
 
 h1{
     font-size: 60px;
+}
+
+.hide{
+    display: none;
+    visibility: hidden;
 }
 
 .flex-center{
@@ -93,6 +94,14 @@ h1{
 
 .bg-orange:hover {
     background-color:#ff6a3c;
+}
+
+.bg-blue {
+    background-color: #318aac;
+}
+
+.bg-blue:hover {
+    background-color: #5e9db6;
 }
 
 .text-yellow {
