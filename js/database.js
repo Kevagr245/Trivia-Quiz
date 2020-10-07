@@ -1,4 +1,4 @@
-const typeQuestion = [
+const Database = [
     {
         id: 'sportQuestion',
         img: 'sport.jpeg',
