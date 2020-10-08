@@ -7,7 +7,8 @@ const btnReturn = document.getElementById("btn-return");
 const cardType = document.getElementsByClassName("card-type");
 const typeTitle = document.getElementById("type-title");
 const question = document.getElementById("question");
-const btnAnswers = document.getElementById("btns-answer")
+const btnAnswers = document.getElementById("btns-answer");
+const prueba = document.getElementById("prueba");
 
 let nameUser = null;
 let information = null;
@@ -67,6 +68,8 @@ function loadThreeSection(id) {
     sections[2].classList.remove("hide");
 }
 
+prueba.addEventListener("click", () => loadQuestion());
+
 function loadQuestion() {
     let infoQuestion = information.bank[getRandomInt(0,15)];
     question.textContent = infoQuestion.question;
@@ -75,6 +78,7 @@ function loadQuestion() {
 
 function fillAnswer(answers) {
     let container = "";
+    answers = suffle(answers);
     answers.forEach((answer) => {
         container += `
             <button class="btn bg-blue-dark" type="submit">${answer}</button>            
@@ -82,8 +86,15 @@ function fillAnswer(answers) {
     })
     btnAnswers.innerHTML = container;
 }
+
 // Retorna un entero aleatorio entre min (incluido) y max (excluido)
 // ¡Usando Math.round() te dará una distribución no-uniforme!
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function suffle(array) {
+    return array.sort(()=>{
+        return Math.random() - 0.5
+    })
 }
