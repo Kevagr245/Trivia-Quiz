@@ -130,7 +130,8 @@ h3 {
 }
 
 .container{
-    height: 100%;
+    width: 70vw;
+    height: auto;
     border-radius: 20px;
     padding: 30px;
 }
@@ -187,6 +188,10 @@ h3 {
 
 .text-white {
     color: #fff;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .title-text{
