@@ -1,3 +1,4 @@
+//Constantes de los elementos de HTML
 const sections = document.querySelectorAll("main section");
 const formName = document.getElementById("form-name");
 const inputName = document.getElementById("input-name");
@@ -8,11 +9,16 @@ const cardType = document.getElementsByClassName("card-type");
 const typeTitle = document.getElementById("type-title");
 const question = document.getElementById("question");
 const btnAnswers = document.getElementById("btns-answer");
+//Esto solo sirve para pasar de pregunta
 const prueba = document.getElementById("prueba");
 
+//Declaración de variables 
 let nameUser = null;
 let information = null;
 
+/**
+ * Evento del formulario del nombre
+ */
 formName.addEventListener("submit", (e) => {
     e.preventDefault();
     if (inputName.value.length) {
@@ -22,19 +28,30 @@ formName.addEventListener("submit", (e) => {
         alert ("Nombre incompleto");
 });
 
+
+/**
+ * Evento del botón de retornar
+ */
 btnReturn.addEventListener("click",() =>{
     sections[1].classList.add("hide");
     sections[0].classList.remove("hide");
 });
 
+
+/**
+ * Método para cargar la segunda sección
+ */
 function loadSecondSection() {
-    containerType.innerHTML = fillType();
+    fillType();
     loadEvent(cardType);    
     welcomeUser.innerText = `Bienvenido ${nameUser}`;
     sections[0].classList.add("hide");
     sections[1].classList.remove("hide");
 }
 
+/**
+ * Método para llenar la segunda sección con los tipos de preguntas
+ */
 function fillType() {
     let container = "";
     Database.forEach((row) => {
@@ -49,9 +66,13 @@ function fillType() {
             </div>
         `
     })
-    return container;
+    containerType.innerHTML = container;
 }
 
+
+/**
+ * Método para cargar evento a los div de los tipo de pregunta
+ */
 function loadEvent (){
     Array.from(cardType).forEach( type =>{
         type.addEventListener("click", () => {
@@ -60,6 +81,9 @@ function loadEvent (){
     })    
 }
 
+/**
+ * Método para cargar la tercera sección 
+ */
 function loadThreeSection(id) {
     information = Database.find((element) => element.id === id);
     typeTitle.textContent = information.name;
@@ -68,6 +92,7 @@ function loadThreeSection(id) {
     sections[2].classList.remove("hide");
 }
 
+// Este es un evento del botón de prueba
 prueba.addEventListener("click", () => loadQuestion());
 
 function loadQuestion() {
@@ -76,6 +101,10 @@ function loadQuestion() {
     fillAnswer(infoQuestion.answers);
 }
 
+/**
+ * Método para llenar las respuestas de la preguntas 
+ * @param {*} answers 
+ */
 function fillAnswer(answers) {
     let container = "";
     answers = suffle(answers);
@@ -87,12 +116,19 @@ function fillAnswer(answers) {
     btnAnswers.innerHTML = container;
 }
 
-// Retorna un entero aleatorio entre min (incluido) y max (excluido)
-// ¡Usando Math.round() te dará una distribución no-uniforme!
+/**
+ * Método para retorna un entero aleatorio entre min (incluido) y max (excluido)
+ * @param {*} min Es el número mímino y es incluido
+ * @param {*} max Es el número máximo y es excluido
+ */
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
+/**
+ * Método para cambiar el orden a los elementos de un arreglo
+ * @param {} array Es el arreglo a cambiar el orden a sus elemento
+ */
 function suffle(array) {
     return array.sort(()=>{
         return Math.random() - 0.5
