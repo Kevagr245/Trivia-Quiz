@@ -5,16 +5,18 @@ const inputName = document.getElementById("input-name");
 const welcomeUser = document.getElementById("welcome-user");
 const containerType = document.getElementById("type-question");
 const btnReturn = document.getElementById("btn-return");
-const cardType = document.getElementsByClassName("card-type");
 const typeTitle = document.getElementById("type-title");
 const question = document.getElementById("question");
-const btnAnswers = document.getElementById("btns-answer");
-//Esto solo sirve para pasar de pregunta
-const prueba = document.getElementById("prueba");
+const containerAnswers = document.getElementById("btns-answer");
+const cardType = document.getElementsByClassName("card-type");
+const btnAnswers = document.getElementsByClassName("btn-answer");
 
 //Declaración de variables 
 let nameUser = null;
 let information = null;
+let infoQuestion = null;
+let countQuestion = 0;
+let score = 0;
 
 /**
  * Evento del formulario del nombre
@@ -43,7 +45,7 @@ btnReturn.addEventListener("click",() =>{
  */
 function loadSecondSection() {
     fillType();
-    loadEvent(cardType);    
+    loadEvent();    
     welcomeUser.innerText = `Bienvenido ${nameUser}`;
     sections[0].classList.add("hide");
     sections[1].classList.remove("hide");
@@ -69,7 +71,6 @@ function fillType() {
     containerType.innerHTML = container;
 }
 
-
 /**
  * Método para cargar evento a los div de los tipo de pregunta
  */
@@ -78,7 +79,7 @@ function loadEvent (){
         type.addEventListener("click", () => {
             loadThreeSection(type.id);
         })
-    })    
+    })       
 }
 
 /**
@@ -92,13 +93,20 @@ function loadThreeSection(id) {
     sections[2].classList.remove("hide");
 }
 
-// Este es un evento del botón de prueba
-prueba.addEventListener("click", () => loadQuestion());
-
 function loadQuestion() {
-    let infoQuestion = information.bank[getRandomInt(0,15)];
-    question.textContent = infoQuestion.question;
-    fillAnswer(infoQuestion.answers);
+    if (countQuestion < 5){
+        infoQuestion = information.bank[getRandomInt(0,15)];
+        question.textContent = infoQuestion.question;
+        fillAnswer(infoQuestion.answers);
+        loadEventBtn();
+        countQuestion++;
+    } else {
+        alert("Se acabo el juego, tu puntaje fue: " + score);
+        countQuestion = 0;
+        sections[2].classList.add("hide");
+        sections[1].classList.remove("hide");
+        loadSecondSection()
+    }
 }
 
 /**
@@ -107,14 +115,29 @@ function loadQuestion() {
  */
 function fillAnswer(answers) {
     let container = "";
-    answers = suffle(answers);
-    answers.forEach((answer) => {
+    let arrayAnswers = suffle(answers);
+    arrayAnswers.forEach((answer) => {
         container += `
-            <button class="btn bg-blue-dark" type="submit">${answer}</button>            
+            <button class="btn btn-answer bg-blue-dark" type="submit">${answer}</button>            
         `
     })
-    btnAnswers.innerHTML = container;
+    containerAnswers.innerHTML = container;
 }
+
+function  loadEventBtn() {
+    Array.from(btnAnswers).forEach((btn) => {
+        btn.addEventListener("click",()=>{
+            checkAnswer(btn.innerText);
+        })
+    })
+}
+
+function checkAnswer(answer) {
+    if (answer === infoQuestion.answers[infoQuestion.correctAnswer])
+        score++;
+    loadQuestion();
+}
+
 
 /**
  * Método para retorna un entero aleatorio entre min (incluido) y max (excluido)
