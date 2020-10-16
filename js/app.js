@@ -84,6 +84,7 @@ function loadEvent (){
 
 /**
  * Método para cargar la tercera sección 
+ * @param {} id es el identificador del tipo de preguntas
  */
 function loadThreeSection(id) {
     information = Database.find((element) => element.id === id);
@@ -93,6 +94,9 @@ function loadThreeSection(id) {
     sections[2].classList.remove("hide");
 }
 
+/**
+ * Método para cargar las preguntas en la pantalla
+ */
 function loadQuestion() {
     if (countQuestion < 5){
         infoQuestion = information.bank[getRandomInt(0,15)];
@@ -103,6 +107,7 @@ function loadQuestion() {
     } else {
         alert("Se acabo el juego, tu puntaje fue: " + score);
         countQuestion = 0;
+        score = 0;
         sections[2].classList.add("hide");
         sections[1].classList.remove("hide");
         loadSecondSection()
@@ -111,12 +116,12 @@ function loadQuestion() {
 
 /**
  * Método para llenar las respuestas de la preguntas 
- * @param {*} answers 
+ * @param {*} answers son las respuesta que se van a mostrar
  */
 function fillAnswer(answers) {
     let container = "";
-    let arrayAnswers = suffle(answers);
-    arrayAnswers.forEach((answer) => {
+    var arrayAnswers = answers.slice();
+    (suffle(arrayAnswers)).forEach((answer) => {
         container += `
             <button class="btn btn-answer bg-blue-dark" type="submit">${answer}</button>            
         `
@@ -124,6 +129,9 @@ function fillAnswer(answers) {
     containerAnswers.innerHTML = container;
 }
 
+/**
+ * Método para cargar el evento de los botones de las respuestas
+ */
 function  loadEventBtn() {
     Array.from(btnAnswers).forEach((btn) => {
         btn.addEventListener("click",()=>{
@@ -132,9 +140,14 @@ function  loadEventBtn() {
     })
 }
 
+/**
+ * Método para verificar la respuesta del usuario
+ * @param {*} answer es la respuesta del usuario
+ */
 function checkAnswer(answer) {
-    if (answer === infoQuestion.answers[infoQuestion.correctAnswer])
+    if (answer === infoQuestion.answers[infoQuestion.correctAnswer]){
         score++;
+    }
     loadQuestion();
 }
 
