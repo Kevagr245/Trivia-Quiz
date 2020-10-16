@@ -5,7 +5,12 @@ const inputName = document.getElementById("input-name");
 const welcomeUser = document.getElementById("welcome-user");
 const containerType = document.getElementById("type-question");
 const btnReturn = document.getElementById("btn-return");
+const btnType = document.getElementById("btn-type");
+const btnTryIt = document.getElementById("btn-try-it");
 const typeTitle = document.getElementById("type-title");
+const scoreTitle = document.getElementById("score-title");
+const messageText = document.getElementById("message-text");
+const resultText = document.getElementById("result-text");
 const question = document.getElementById("question");
 const containerAnswers = document.getElementById("btns-answer");
 const cardType = document.getElementsByClassName("card-type");
@@ -15,8 +20,10 @@ const btnAnswers = document.getElementsByClassName("btn-answer");
 let nameUser = null;
 let information = null;
 let infoQuestion = null;
+let numbers = null;
 let countQuestion = 0;
 let score = 0;
+let type = 0;
 
 /**
  * Evento del formulario del nombre
@@ -39,6 +46,14 @@ btnReturn.addEventListener("click",() =>{
     sections[0].classList.remove("hide");
 });
 
+btnType.addEventListener("click",() =>{
+    loadSecondSection();
+})
+
+btnTryIt.addEventListener("click",() =>{
+    sections[3].classList.add("hide");
+    loadThreeSection(type);
+})
 
 /**
  * Método para cargar la segunda sección
@@ -48,7 +63,31 @@ function loadSecondSection() {
     loadEvent();    
     welcomeUser.innerText = `Bienvenido ${nameUser}`;
     sections[0].classList.add("hide");
+    sections[3].classList.add("hide");
     sections[1].classList.remove("hide");
+}
+
+/**
+ * Método para cargar la tercera sección 
+ * @param {} id es el identificador del tipo de preguntas
+ */
+function loadThreeSection(id) {
+    type = id;
+    information = Database.find((element) => element.id === id);
+    typeTitle.textContent = information.name;
+    score = 0;
+    countQuestion = 0;
+    numbers = getArrayRandom();
+    loadQuestion();
+    sections[1].classList.add("hide");
+    sections[2].classList.remove("hide");
+}
+
+function loadFourSection() {
+    sections[2].classList.add("hide");
+    sections[3].classList.remove("hide");
+    resultText.innerText = `${nameUser}, tu puntaje fue ${score}/${countQuestion}`;
+    messageText.innerText = Message(score);
 }
 
 /**
@@ -83,34 +122,18 @@ function loadEvent (){
 }
 
 /**
- * Método para cargar la tercera sección 
- * @param {} id es el identificador del tipo de preguntas
- */
-function loadThreeSection(id) {
-    information = Database.find((element) => element.id === id);
-    typeTitle.textContent = information.name;
-    loadQuestion();
-    sections[1].classList.add("hide");
-    sections[2].classList.remove("hide");
-}
-
-/**
  * Método para cargar las preguntas en la pantalla
  */
 function loadQuestion() {
-    if (countQuestion < 5){
-        infoQuestion = information.bank[getRandomInt(0,15)];
+    scoreTitle.textContent = `Puntaje: ${score}`;
+    if (countQuestion < 5) {
+        infoQuestion = information.bank[numbers.pop()];
         question.textContent = infoQuestion.question;
         fillAnswer(infoQuestion.answers);
         loadEventBtn();
         countQuestion++;
     } else {
-        alert("Se acabo el juego, tu puntaje fue: " + score);
-        countQuestion = 0;
-        score = 0;
-        sections[2].classList.add("hide");
-        sections[1].classList.remove("hide");
-        loadSecondSection()
+        loadFourSection();
     }
 }
 
@@ -157,9 +180,20 @@ function checkAnswer(answer) {
  * @param {*} min Es el número mímino y es incluido
  * @param {*} max Es el número máximo y es excluido
  */
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
+function getArrayRandom() {
+    let arrayNumber = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+    return suffle(arrayNumber);
 }
+
+function getMessage(score) {
+    if (score < 2) 
+        return "Fallaste...¡Inténtalo de nuevo!"
+    else if (score <= 4)
+        return "¡Ohhh! Estuviste cerca..."
+    else
+        return "¡Felicidades!"
+}
+
 
 /**
  * Método para cambiar el orden a los elementos de un arreglo
