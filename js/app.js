@@ -87,7 +87,7 @@ function loadFourSection() {
     sections[2].classList.add("hide");
     sections[3].classList.remove("hide");
     resultText.innerText = `${nameUser}, tu puntaje fue ${score}/${countQuestion}`;
-    messageText.innerText = Message(score);
+    messageText.innerText = getMessage(score);
 }
 
 /**
