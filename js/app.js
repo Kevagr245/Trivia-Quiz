@@ -20,7 +20,7 @@ const btnAnswers = document.getElementsByClassName("btn-answer");
 let nameUser = null;
 let information = null;
 let infoQuestion = null;
-let numbers = null;
+let currentQuestion = null;
 let countQuestion = 0;
 let score = 0;
 let type = 0;
@@ -31,7 +31,6 @@ let type = 0;
 formName.addEventListener("submit", (e) => {
     e.preventDefault();
     if (inputName.value.length) {
-        nameUser = inputName.value;
         loadSecondSection();
     } else 
         alert ("Nombre incompleto");
@@ -59,9 +58,10 @@ btnTryIt.addEventListener("click",() =>{
  * Método para cargar la segunda sección
  */
 function loadSecondSection() {
+    nameUser = inputName.value;
     fillType();
     loadEvent();    
-    welcomeUser.innerText = `Bienvenido ${nameUser}`;
+    welcomeUser.innerText = `Bienvenido/a ${nameUser}`;
     sections[0].classList.add("hide");
     sections[3].classList.add("hide");
     sections[1].classList.remove("hide");
@@ -77,7 +77,7 @@ function loadThreeSection(id) {
     typeTitle.textContent = information.name;
     score = 0;
     countQuestion = 0;
-    numbers = getArrayRandom();
+    infoQuestion = information.bank.slice();
     loadQuestion();
     sections[1].classList.add("hide");
     sections[2].classList.remove("hide");
@@ -96,15 +96,16 @@ function loadFourSection() {
 function fillType() {
     let container = "";
     Database.forEach((row) => {
-        container += `
-            <div class="card card-type" id="${row.id}">
-                <div class="card_image"> 
-                    <img src="img/type/${row.img}"/> 
+        if (row.bank.length > 6)
+            container += `
+                <div class="card card-type" id="${row.id}">
+                    <div class="card_image"> 
+                        <img src="img/type/${row.img}"/> 
+                    </div>
+                    <div class="card_title text-white">
+                        <p>${row.name}</p>
+                    </div>
                 </div>
-                <div class="card_title text-white">
-                    <p>${row.name}</p>
-                </div>
-            </div>
         `
     })
     containerType.innerHTML = container;
@@ -127,9 +128,9 @@ function loadEvent (){
 function loadQuestion() {
     scoreTitle.textContent = `Puntaje: ${score}`;
     if (countQuestion < 5) {
-        infoQuestion = information.bank[numbers.pop()];
-        question.textContent = infoQuestion.question;
-        fillAnswer(infoQuestion.answers);
+        currentQuestion = infoQuestion.pop();
+        question.textContent = currentQuestion.question;
+        fillAnswer(currentQuestion.answers);
         loadEventBtn();
         countQuestion++;
     } else {
@@ -168,25 +169,14 @@ function  loadEventBtn() {
  * @param {*} answer es la respuesta del usuario
  */
 function checkAnswer(answer) {
-    if (answer === infoQuestion.answers[infoQuestion.correctAnswer]){
+    if (answer === currentQuestion.answers[currentQuestion.correctAnswer]){
         score++;
     }
     loadQuestion();
 }
 
-
-/**
- * Método para retorna un entero aleatorio entre min (incluido) y max (excluido)
- * @param {*} min Es el número mímino y es incluido
- * @param {*} max Es el número máximo y es excluido
- */
-function getArrayRandom() {
-    let arrayNumber = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
-    return suffle(arrayNumber);
-}
-
 function getMessage(score) {
-    if (score < 2) 
+    if (score <= 2) 
         return "Fallaste...¡Inténtalo de nuevo!"
     else if (score <= 4)
         return "¡Ohhh! Estuviste cerca..."
