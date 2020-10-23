@@ -7,6 +7,8 @@ const containerType = document.getElementById("type-question");
 const btnReturn = document.getElementById("btn-return");
 const btnType = document.getElementById("btn-type");
 const btnTryIt = document.getElementById("btn-try-it");
+const btnName = document.getElementById("btn-name");
+const btnAnswers = document.getElementsByClassName("btn-answer");
 const typeTitle = document.getElementById("type-title");
 const scoreTitle = document.getElementById("score-title");
 const messageText = document.getElementById("message-text");
@@ -14,7 +16,7 @@ const resultText = document.getElementById("result-text");
 const question = document.getElementById("question");
 const containerAnswers = document.getElementById("btns-answer");
 const cardType = document.getElementsByClassName("card-type");
-const btnAnswers = document.getElementsByClassName("btn-answer");
+
 
 //Declaración de variables 
 let nameUser = null;
@@ -30,12 +32,8 @@ let type = 0;
  */
 formName.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (inputName.value.length) {
-        loadSecondSection();
-    } else 
-        alert ("Nombre incompleto");
+    submitName();
 });
-
 
 /**
  * Evento del botón de retornar
@@ -54,6 +52,11 @@ btnTryIt.addEventListener("click",() =>{
     loadThreeSection(type);
 })
 
+btnName.addEventListener("click",() =>{
+    sections[3].classList.add("hide");
+    sections[0].classList.remove("hide");
+})
+
 /**
  * Método para cargar la segunda sección
  */
@@ -68,16 +71,29 @@ function loadSecondSection() {
 }
 
 /**
+ * Método del evento submit del formulario Name
+ */
+function submitName() {
+    if (inputName.value.length) {
+        loadSecondSection();
+    } else {
+        const small = formName.querySelector('small');
+        inputName.classList.add("error");
+        small.innerText = "Ingrese un nombre";
+    }
+}
+
+/**
  * Método para cargar la tercera sección 
  * @param {} id es el identificador del tipo de preguntas
  */
 function loadThreeSection(id) {
+    score = 0;
+    countQuestion = 0;
     type = id;
     information = Database.find((element) => element.id === id);
     typeTitle.textContent = information.name;
-    score = 0;
-    countQuestion = 0;
-    infoQuestion = information.bank.slice();
+    infoQuestion = suffle(information.bank.slice());
     loadQuestion();
     sections[1].classList.add("hide");
     sections[2].classList.remove("hide");
@@ -126,8 +142,8 @@ function loadEvent (){
  * Método para cargar las preguntas en la pantalla
  */
 function loadQuestion() {
-    scoreTitle.textContent = `Puntaje: ${score}`;
     if (countQuestion < 5) {
+        scoreTitle.textContent = `Puntaje: ${score}`;
         currentQuestion = infoQuestion.pop();
         question.textContent = currentQuestion.question;
         fillAnswer(currentQuestion.answers);
@@ -175,6 +191,10 @@ function checkAnswer(answer) {
     loadQuestion();
 }
 
+/**
+ * Método para retornar el mensaje según su puntaje
+ * @param {*} score es el puntaje del usuario
+ */
 function getMessage(score) {
     if (score <= 2) 
         return "Fallaste...¡Inténtalo de nuevo!"
