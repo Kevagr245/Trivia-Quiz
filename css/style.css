@@ -35,6 +35,9 @@ h2{
 h3 {
     font-size: 30px;
 }
+p {
+    font-size: 20px;
+}
 .hide{
     display: none;
     visibility: hidden;
@@ -73,6 +76,22 @@ h3 {
     font-size: 26px;
     text-align: center;
     font-family: 'Oswald', sans-serif;
+}
+
+.form-control input.error {
+    border: 3px #ce4242 solid;
+}
+
+.form-control input.error + small{
+    visibility: visible;
+}
+
+.form-control small {
+    visibility: hidden;
+    font-size: 15px;
+    display: block;
+    margin: 5px 0 10px 0;
+    color: #ce4242;
 }
 
 .btn {
