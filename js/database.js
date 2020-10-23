@@ -1,3 +1,5 @@
+const totalQuestion = 5;
+
 const Database = [
     {
         id: 'sportQuestion',

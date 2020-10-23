@@ -112,7 +112,7 @@ function loadFourSection() {
 function fillType() {
     let container = "";
     Database.forEach((row) => {
-        if (row.bank.length > 6)
+        if (row.bank.length > totalQuestion + 1)
             container += `
                 <div class="card card-type" id="${row.id}">
                     <div class="card_image"> 
@@ -142,7 +142,7 @@ function loadEvent (){
  * Método para cargar las preguntas en la pantalla
  */
 function loadQuestion() {
-    if (countQuestion < 5) {
+    if (countQuestion < totalQuestion) {
         scoreTitle.textContent = `Puntaje: ${score}`;
         currentQuestion = infoQuestion.pop();
         question.textContent = currentQuestion.question;
@@ -196,9 +196,9 @@ function checkAnswer(answer) {
  * @param {*} score es el puntaje del usuario
  */
 function getMessage(score) {
-    if (score <= 2) 
+    if (score <= totalQuestion - 3) 
         return "Fallaste...¡Inténtalo de nuevo!"
-    else if (score <= 4)
+    else if (score <= totalQuestion - 1)
         return "¡Ohhh! Estuviste cerca..."
     else
         return "¡Felicidades!"
