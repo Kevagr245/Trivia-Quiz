@@ -252,5 +252,70 @@ const Database = [
                 correctAnswer: 2
             }
         ]
-    }
+    },
+    {
+        id: 'miscellanyQuestion',
+        img: 'miscellany.png',
+        name: 'Miscelanea',
+        bank: [
+            /**
+            {
+                question: '¿Quién es el propietario del primer almacén de Nintendo?',
+                answers: [  'Benjamin Chichoski', 
+                            'Mario Segale', 
+                            'Toru Iwatami',
+                            'Mario Raider'],
+                correctAnswer: 1
+            },
+            {
+                question: '¿Cuál es el juego más vendido de la consola XBOX?',
+                answers: [  'Halo 2', 
+                            'CrossFile', 
+                            'League of Legends',
+                            'The Guy Game'],
+                correctAnswer: 0
+            },
+            {
+                question: '¿Cómo se llamaba la consola que Nintendo saco en 1995 que permitía descargar videojuegos vía satélite?',
+                answers: [  'RS-X', 
+                            'BS-X', 
+                            'CR-X',
+                            'MS-X'],
+                correctAnswer: 1
+            },
+            {
+                question: '¿Qué jugador de fútbol ha ganado más campeonatos en la copa del mundo?',
+                answers: [  'Pelé, tres veces en 1958, 1962 y 1972', 
+                            'Maradona, tres veces en 1982, 1990 y 1994', 
+                            'Ronaldo Nazario, tres veces en 1994, 2002 y 2006',
+                            'Gerd Muller, tres veces en 1966, 1972, 1982'],
+                correctAnswer: 0
+            },
+            {
+                question: '¿Qué jugador de la NBA ha ganado más campeonatos en toda la historia?',
+                answers: [  'Sam Jones, 11 campeonatos con los Celtics',
+                            'Bill Russell, 11 campeonatos con los Celtics',
+                            'Tom Heinsohn, 11 campeonatos con los Celtics',
+                            'K.C. Jones, 11 campeonatos con los Celtics'],
+                correctAnswer: 1 
+            },
+            {
+                question: '¿Qué belga es considerado como uno de los mejores ciclistas de todos los tiempos?',
+                answers: [  'Rik Van Loopy',
+                            'Philippe Thys',
+                            'Lucien Van Impere',
+                            'Eddy Merchx'],
+                correctAnswer: 3
+            },
+            {
+                question: '¿Quién fue el boxeador más joven de la historia en conseguir un título mundial de los pesos pesados?',
+                answers: [  'Myke Tyson',
+                            'Roberto Durán Samaniego',
+                            'Rocky Marciano',
+                            'Muhammad Ali' ],
+                correctAnswer: 0
+            }
+            */
+        ]
+    },
 ];
