@@ -155,7 +155,7 @@ p {
 }
 
 .container{
-    width: 70vw;
+    width: 50vw;
     height: auto;
     border-radius: 20px;
     padding: 30px;
@@ -218,4 +218,10 @@ p {
 .title-text{
     text-align: center;
     margin: 10px;
+}
+
+@media screen and (max-width: 800px) {
+    .container{
+        width: 80vw;
+    }   
 }
