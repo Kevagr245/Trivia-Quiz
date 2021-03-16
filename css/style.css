@@ -38,6 +38,7 @@ h3 {
 p {
     font-size: 20px;
 }
+
 .hide{
     display: none;
     visibility: hidden;
@@ -184,7 +185,7 @@ p {
 }
 
 .bg-orange:hover {
-    background-color:#ff6a3c;
+    background-color:#f38563;
 }
 
 .bg-blue-dark {

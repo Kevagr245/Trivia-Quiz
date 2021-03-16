@@ -23,9 +23,10 @@ let nameUser = null;
 let information = null;
 let infoQuestion = null;
 let currentQuestion = null;
+let type = null;
 let countQuestion = 0;
 let score = 0;
-let type = 0;
+
 
 /**
  * Evento del formulario del nombre
@@ -103,7 +104,7 @@ function loadFourSection() {
     sections[2].classList.add("hide");
     sections[3].classList.remove("hide");
     resultText.innerText = `${nameUser}, tu puntaje fue ${score}/${countQuestion}`;
-    messageText.innerText = getMessage(score);
+    messageText.innerText = getMessage(score,3,1);
 }
 
 /**
@@ -112,6 +113,7 @@ function loadFourSection() {
 function fillType() {
     let container = "";
     Database.forEach((row) => {
+        //Verificar que si cuente con las preguntas suficientes
         if (row.bank.length > totalQuestion + 1)
             container += `
                 <div class="card card-type" id="${row.id}">
@@ -163,7 +165,7 @@ function fillAnswer(answers) {
     var arrayAnswers = answers.slice();
     (suffle(arrayAnswers)).forEach((answer) => {
         container += `
-            <button class="btn btn-answer bg-blue-dark" type="submit">${answer}</button>            
+            <button class="btn btn-answer bg-orange" type="submit">${answer}</button>            
         `
     })
     containerAnswers.innerHTML = container;
@@ -195,10 +197,10 @@ function checkAnswer(answer) {
  * Método para retornar el mensaje según su puntaje
  * @param {*} score es el puntaje del usuario
  */
-function getMessage(score) {
-    if (score <= totalQuestion - 3) 
+function getMessage(score,min,max) {
+    if (score <= totalQuestion - min) 
         return "Fallaste...¡Inténtalo de nuevo!"
-    else if (score <= totalQuestion - 1)
+    else if (score <= totalQuestion - max)
         return "¡Ohhh! Estuviste cerca..."
     else
         return "¡Felicidades!"

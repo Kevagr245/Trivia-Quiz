@@ -1,4 +1,4 @@
-const totalQuestion = 5;
+const totalQuestion =5;
 
 const Database = [
     {
@@ -260,7 +260,7 @@ const Database = [
         img: 'miscellany.png',
         name: 'Miscelanea',
         bank: [
-            /**
+            
             {
                 question: '¿Quién es el propietario del primer almacén de Nintendo?',
                 answers: [  'Benjamin Chichoski', 
@@ -317,7 +317,7 @@ const Database = [
                             'Muhammad Ali' ],
                 correctAnswer: 0
             }
-            */
+        
         ]
     },
 ];
